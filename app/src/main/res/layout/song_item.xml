@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="15dp"
+    android:foreground="?selectableItemBackground"
+    >
+    <ImageView
+        android:id="@+id/ivSongImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:src="@drawable/baby_yoda"
+        tools:ignore="MissingConstraints"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintDimensionRatio="1:1" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@id/ivSongImage"
+        app:layout_constraintTop_toTopOf="@id/ivSongImage"
+        app:layout_constraintBottom_toBottomOf="@id/ivSongImage"
+        >
+        <TextView
+            android:id="@+id/tvSongTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Song title"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/tvArtistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvSongTitle"
+            android:layout_marginLeft="10dp"
+            tools:text="artist name"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

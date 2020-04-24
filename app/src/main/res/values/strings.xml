@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Little App</string>
+    <string name="all_song">All Songs</string>
+    <string name="dotify">Dotify</string>
+</resources>
