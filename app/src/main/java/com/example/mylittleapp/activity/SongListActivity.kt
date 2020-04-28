@@ -1,18 +1,14 @@
-package com.example.mylittleapp
+package com.example.mylittleapp.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
+import com.example.mylittleapp.R
+import com.example.mylittleapp.SongListAdapter
 import kotlinx.android.synthetic.main.activity_song_list.*
-import kotlinx.android.synthetic.main.song_item.*
-import java.util.Collections.shuffle
 
 class SongListActivity : AppCompatActivity() {
     private var allSongs = SongDataProvider.getAllSongs().toMutableList()
@@ -49,7 +45,7 @@ class SongListActivity : AppCompatActivity() {
         }
 
         tvDisplaySong.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, SongDetailActivity::class.java)
             intent.putExtra("SONG_INFO", this.currentSong)
             startActivity(intent)
         }

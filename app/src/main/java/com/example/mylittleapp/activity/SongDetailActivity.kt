@@ -1,4 +1,4 @@
-package com.example.mylittleapp
+package com.example.mylittleapp.activity
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +8,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import com.ericchee.songdataprovider.Song
+import com.example.mylittleapp.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_song_list.*
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity() {
+class SongDetailActivity : AppCompatActivity() {
     companion object {
         const val SONG = "SONG_INFO"
     }
