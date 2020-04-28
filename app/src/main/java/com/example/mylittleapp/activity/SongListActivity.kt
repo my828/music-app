@@ -8,10 +8,11 @@ import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
 import com.example.mylittleapp.R
 import com.example.mylittleapp.SongListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_song_list.*
 
 class SongListActivity : AppCompatActivity() {
-    private var allSongs = SongDataProvider.getAllSongs().toMutableList()
+//    private var allSongs = SongDataProvider.getAllSongs().toMutableList()
     private var currentSong: Song? = null
     private lateinit var songAdapter: SongListAdapter
 
@@ -29,9 +30,9 @@ class SongListActivity : AppCompatActivity() {
             adapter = songAdapter
         }
         // handle shuffle button click
-        btnShuffle.setOnClickListener {
-            songAdapter.shuffle()
-        }
+//        btnShuffle.setOnClickListener {
+//            songAdapter.shuffle()
+//        }
 
         // invoke single song click listener from songAdapter
         songAdapter.onSongClickListener = {
