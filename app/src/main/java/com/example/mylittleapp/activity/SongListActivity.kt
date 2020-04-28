@@ -45,9 +45,11 @@ class SongListActivity : AppCompatActivity() {
         }
 
         tvDisplaySong.setOnClickListener {
-            val intent = Intent(this, SongDetailActivity::class.java)
-            intent.putExtra("SONG_INFO", this.currentSong)
-            startActivity(intent)
+            if (this.currentSong != null) {
+                val intent = Intent(this, SongDetailActivity::class.java)
+                intent.putExtra("SONG_INFO", this.currentSong)
+                startActivity(intent)
+            }
         }
     }
 }
