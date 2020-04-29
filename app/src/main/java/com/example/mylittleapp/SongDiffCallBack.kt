@@ -21,6 +21,6 @@ class SongDiffCallBack(    private val oldSongs: List<Song>,
         val oldSong = oldSongs[oldItemPosition]
         val newSong = newSongs[newItemPosition]
 
-        return (oldSong.title == newSong.title) && (oldSong.artist == newSong.artist)
+        return oldSong.title == newSong.title && oldSong.artist == newSong.artist
     }
 }

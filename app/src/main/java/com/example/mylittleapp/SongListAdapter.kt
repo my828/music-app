@@ -29,26 +29,30 @@ class SongListAdapter(listOfSongs: List<Song>):
         val personName = listOfSongs[position]
         holder.bindView(personName, position)
     }
-    fun removeItem(pos: Int) {
-        val newSongs = listOfSongs.toMutableList()
-        newSongs.removeAt(pos)
+//    fun removeItem(newSongs: List<Song>) {
+////        val newSongs = listOfSongs.toMutableList()
+////        newSongs.removeAt(pos)
+////        notifyItemRemoved(pos)
+//        val callback = SongDiffCallBack(listOfSongs, newSongs)
+//        val diffResult = DiffUtil.calculateDiff(callback)
+//        listOfSongs = newSongs
+//        diffResult.dispatchUpdatesTo(this)
+////        checkUpdate(newSongs)
+//    }
+//    fun shuffle(newSongs: List<Song>) {
+//        val callback = SongDiffCallBack(listOfSongs, newSongs)
+//        val diffResult = DiffUtil.calculateDiff(callback)
+//        listOfSongs = newSongs
+//        diffResult.dispatchUpdatesTo(this)
+//    }
 
-        checkUpdate(newSongs)
-        listOfSongs = newSongs
-
-    }
-    fun shuffle() {
-        val newSongs = listOfSongs.toMutableList().apply {
-            shuffle()
-        }
-        checkUpdate(newSongs)
-        listOfSongs = newSongs
-    }
-    fun checkUpdate(newSongs: List<Song>) {
+    fun updateSongList(newSongs: List<Song>) {
         val callback = SongDiffCallBack(listOfSongs, newSongs)
         val diffResult = DiffUtil.calculateDiff(callback)
+        listOfSongs = newSongs
         diffResult.dispatchUpdatesTo(this)
     }
+
     inner class SongViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val ivSongImage by lazy { itemView.findViewById<ImageView>(R.id.ivSongImage)}
         private val tvSongTitle by  lazy { itemView.findViewById<TextView>(R.id.tvSongTitle)}

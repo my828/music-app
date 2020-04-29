@@ -1,21 +1,18 @@
-package com.example.mylittleapp
+package com.example.mylittleapp.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
+import com.example.mylittleapp.R
+import com.example.mylittleapp.SongListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_song_list.*
-import kotlinx.android.synthetic.main.song_item.*
-import java.util.Collections.shuffle
 
 class SongListActivity : AppCompatActivity() {
-    private var allSongs = SongDataProvider.getAllSongs().toMutableList()
+//    private var allSongs = SongDataProvider.getAllSongs().toMutableList()
     private var currentSong: Song? = null
     private lateinit var songAdapter: SongListAdapter
 
@@ -33,9 +30,9 @@ class SongListActivity : AppCompatActivity() {
             adapter = songAdapter
         }
         // handle shuffle button click
-        btnShuffle.setOnClickListener {
-            songAdapter.shuffle()
-        }
+//        btnShuffle.setOnClickListener {
+//            songAdapter.shuffle()
+//        }
 
         // invoke single song click listener from songAdapter
         songAdapter.onSongClickListener = {
@@ -44,14 +41,16 @@ class SongListActivity : AppCompatActivity() {
         }
 
         songAdapter.onLongClickListener = { song, pos ->
-            songAdapter.removeItem(pos)
+//            songAdapter.removeItem(pos)
             Toast.makeText(this, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
 
         tvDisplaySong.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("SONG_INFO", this.currentSong)
-            startActivity(intent)
+            currentSong?.let {
+                val intent = Intent(this, SongDetailActivity::class.java)
+                intent.putExtra("SONG_INFO", it)
+                startActivity(intent)
+            }
         }
     }
 }
