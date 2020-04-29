@@ -29,10 +29,10 @@ class SongListAdapter(listOfSongs: List<Song>):
         val personName = listOfSongs[position]
         holder.bindView(personName, position)
     }
-    fun removeItem(pos: Int) {
-        val newSongs = listOfSongs.toMutableList()
-        newSongs.removeAt(pos)
-
+    fun removeItem(newSongs: List<Song>) {
+//        val newSongs = listOfSongs.toMutableList()
+//        newSongs.removeAt(pos)
+//
 //        checkUpdate(newSongs)
         listOfSongs = newSongs
 
@@ -42,6 +42,13 @@ class SongListAdapter(listOfSongs: List<Song>):
 //            shuffle()
 //        }
 //        checkUpdate(newSongs)
+        listOfSongs = newSongs
+    }
+
+    fun checkUpdate(newSongs: List<Song>) {
+        val callback = SongDiffCallBack(listOfSongs, newSongs)
+        val diffResult = DiffUtil.calculateDiff(callback)
+        diffResult.dispatchUpdatesTo(this)
         listOfSongs = newSongs
     }
 

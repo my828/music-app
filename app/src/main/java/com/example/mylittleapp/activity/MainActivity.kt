@@ -19,11 +19,15 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
 
     private var currentSong: Song? = null
 
+    companion object {
+        val ALL_SONGS = "All Songs"
+        val DOTIFY = "Dotify"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        title = "All Songs"
+        title = ALL_SONGS
 
         // start/initialize song list fragment
         songListFragment = SongListFragment()
@@ -42,38 +46,38 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
             songListFragment.shuffleList()
         }
 
+        // handle mini player click
         tvDisplaySong.setOnClickListener {
             currentSong?.let {
-                title = "Dotify"
+                title = DOTIFY
                 bottomBar.visibility = View.INVISIBLE
                 showNowPlayingFragment(it)
             }
         }
 
+        // listener for fragment manager back stack changes
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount > 0) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
             } else {
+                bottomBar.visibility = View.VISIBLE
+                title = ALL_SONGS
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
     }
+
     private fun getNowPlayingFragment() = supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) as? NowPlayingFragment
 
     // handle back button
-    override fun onNavigateUp(): Boolean {
-        val emailFrag = getNowPlayingFragment()
-        if (emailFrag != null) {
-            Log.i("back", "back clicked!")
-            supportFragmentManager
-                .beginTransaction()
-                .remove(emailFrag)
-                .commit()
-            return true
-        }
-//        supportFragmentManager.popBackStack()
-        return super.onNavigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+//        val nowPlayingFrag = getNowPlayingFragment()
+//        if (nowPlayingFrag != null) {
+//        }
+        supportFragmentManager.popBackStack()
+        return true
     }
+
     private fun showNowPlayingFragment(song: Song) {
         var nowPlayingFrament = getNowPlayingFragment()
 
@@ -97,4 +101,5 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
         tvDisplaySong.text ="${song.title} -- ${song.artist}"
         currentSong = song
     }
+
 }

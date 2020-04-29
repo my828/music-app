@@ -41,7 +41,7 @@ class SongListActivity : AppCompatActivity() {
         }
 
         songAdapter.onLongClickListener = { song, pos ->
-            songAdapter.removeItem(pos)
+//            songAdapter.removeItem(pos)
             Toast.makeText(this, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
 

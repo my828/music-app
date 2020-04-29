@@ -66,13 +66,22 @@ class SongListFragment: Fragment() {
 
         // invoke single song click listener from songAdapter
         songAdapter.onSongClickListener = {
-//            tvDisplaySong.text ="${it.title} -- ${it.artist}"
-//            this.currentSong = it
             onSongClickListener?.onSongClicked(it)
         }
 
         songAdapter.onLongClickListener = { song, pos ->
-            songAdapter.removeItem(pos)
+            var newSongs: MutableList<Song>? = null
+            allSongs?.let {
+                newSongs = it.toMutableList()
+            }
+
+            newSongs?.let {
+                it.removeAt(pos)
+                songAdapter.checkUpdate(it.toList())
+//                songAdapter.removeItem(it)
+            }
+            Log.i("remove", newSongs.toString())
+
             Toast.makeText(context, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
     }
@@ -81,16 +90,11 @@ class SongListFragment: Fragment() {
         val newSongs = allSongs!!.toMutableList().apply {
             shuffle()
         }
-        checkUpdate(newSongs)
+        songAdapter.checkUpdate(newSongs)
         Log.i("shuffle", "shuffled!!")
         songAdapter.shuffle(newSongs)
     }
 
-    private fun checkUpdate(newSongs: List<Song>) {
-        val callback = SongDiffCallBack(allSongs!!, newSongs)
-        val diffResult = DiffUtil.calculateDiff(callback)
-        diffResult.dispatchUpdatesTo(songAdapter)
-    }
 }
 
 interface OnSongClickListener {

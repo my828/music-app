@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SongDetailActivity"
-    android:padding="16dp"
     android:id="@+id/clParent"
     android:background="#ffff"
     >
@@ -99,7 +98,6 @@
         android:layout_height="100dp"
         android:background="@android:color/transparent"
         android:foreground="?selectableItemBackground"
-        android:onClick="playButtonClicked"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_play"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -107,11 +105,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvPlaysCount" />
 
     <ImageButton
+        android:id="@+id/ibPrev"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@android:color/transparent"
         android:foreground="?selectableItemBackground"
-        android:onClick="prevButtonClicked"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintBottom_toBottomOf="@id/ibPlay"
@@ -121,11 +119,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvPlaysCount" />
 
     <ImageButton
+        android:id="@+id/ibNext"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@android:color/transparent"
         android:foreground="?selectableItemBackground"
-        android:onClick="nextButtonClicked"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_next"
         app:layout_constraintBottom_toBottomOf="@id/ibPlay"

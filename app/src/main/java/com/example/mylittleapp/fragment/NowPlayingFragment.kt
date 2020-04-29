@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ericchee.songdataprovider.Song
 import com.example.mylittleapp.R
@@ -39,6 +40,16 @@ class NowPlayingFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvPlaysCount.text = "${randomNum.toString()} plays"
+        ibPlay.setOnClickListener {
+            randomNum++;
+            tvPlaysCount.text = "${randomNum.toString()} plays"
+        }
+        ibNext.setOnClickListener {
+            Toast.makeText(context, "Skipping to next track", Toast.LENGTH_SHORT).show()
+        }
+        ibPrev.setOnClickListener {
+            Toast.makeText(context, "Skipping to previous track", Toast.LENGTH_SHORT).show()
+        }
         updateSongViews()
     }
 
