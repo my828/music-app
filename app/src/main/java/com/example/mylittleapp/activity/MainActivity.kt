@@ -2,6 +2,8 @@ package com.example.mylittleapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
 import com.example.mylittleapp.R
@@ -41,21 +43,56 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
         }
 
         tvDisplaySong.setOnClickListener {
+            currentSong?.let {
+                title = "Dotify"
+                bottomBar.visibility = View.INVISIBLE
+                showNowPlayingFragment(it)
+            }
+        }
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
         }
     }
+    private fun getNowPlayingFragment() = supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) as? NowPlayingFragment
 
-    fun showNowPlayingFragment(song: Song) {
-        val nowPlayingFrament = NowPlayingFragment()
-        val bundle = Bundle().apply {
+    // handle back button
+    override fun onNavigateUp(): Boolean {
+        val emailFrag = getNowPlayingFragment()
+        if (emailFrag != null) {
+            Log.i("back", "back clicked!")
+            supportFragmentManager
+                .beginTransaction()
+                .remove(emailFrag)
+                .commit()
+            return true
+        }
+//        supportFragmentManager.popBackStack()
+        return super.onNavigateUp()
+    }
+    private fun showNowPlayingFragment(song: Song) {
+        var nowPlayingFrament = getNowPlayingFragment()
+
+        if (nowPlayingFrament == null) {
+            nowPlayingFrament = NowPlayingFragment()
+            val bundle = Bundle().apply {
+                putParcelable(NowPlayingFragment.SONG, song)
+            }
+            nowPlayingFrament.arguments = bundle
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragContainer, nowPlayingFrament, NowPlayingFragment.TAG)
+                .addToBackStack(NowPlayingFragment.TAG)
+                .commit()
+        } else {
             nowPlayingFrament.updateSong(song)
         }
-        nowPlayingFrament.arguments = bundle
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragContainer, nowPlayingFrament)
-            .commit()
     }
+
     override fun onSongClicked(song: Song) {
         tvDisplaySong.text ="${song.title} -- ${song.artist}"
         currentSong = song

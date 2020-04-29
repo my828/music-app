@@ -75,13 +75,6 @@ class SongListFragment: Fragment() {
             songAdapter.removeItem(pos)
             Toast.makeText(context, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
-
-
-//        tvDisplaySong.setOnClickListener {
-//            val intent = Intent(this, SongDetailActivity::class.java)
-//            intent.putExtra("SONG_INFO", this.currentSong)
-//            startActivity(intent)
-//        }
     }
 
     fun shuffleList() {

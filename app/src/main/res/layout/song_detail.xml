@@ -7,6 +7,7 @@
     tools:context=".activity.SongDetailActivity"
     android:padding="16dp"
     android:id="@+id/clParent"
+    android:background="#ffff"
     >
 
     <TextView
