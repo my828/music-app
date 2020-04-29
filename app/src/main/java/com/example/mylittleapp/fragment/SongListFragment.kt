@@ -27,6 +27,8 @@ class SongListFragment: Fragment() {
 
     companion object {
         const val ALL_SONGS = "all_songs"
+        val SHUFFLE = "shuffle"
+        val REMOVE = "remove"
     }
 
     override fun onAttach(context: Context?) {
@@ -70,31 +72,45 @@ class SongListFragment: Fragment() {
         }
 
         songAdapter.onLongClickListener = { song, pos ->
-            var newSongs: MutableList<Song>? = null
-            allSongs?.let {
-                newSongs = it.toMutableList()
-            }
-
-            newSongs?.let {
-                it.removeAt(pos)
-                songAdapter.checkUpdate(it.toList())
-//                songAdapter.removeItem(it)
-            }
-            Log.i("remove", newSongs.toString())
-
+            updateList(REMOVE, pos)
+//            var newSongs = createNewSongs()
+//            newSongs?.let {
+//                it.removeAt(pos)
+//                songAdapter.updateSongList(it)
+//            }
+//            allSongs = newSongs
+//            Log.i("remove", allSongs.toString())
             Toast.makeText(context, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
     }
 
     fun shuffleList() {
-        val newSongs = allSongs!!.toMutableList().apply {
-            shuffle()
-        }
-        songAdapter.checkUpdate(newSongs)
-        Log.i("shuffle", "shuffled!!")
-        songAdapter.shuffle(newSongs)
+        updateList(SHUFFLE, -1)
     }
 
+    private fun updateList(type: String, pos: Int) {
+        var newSongs = createNewSongs()
+        newSongs?.let {
+            if (type == SHUFFLE) {
+                it.shuffle()
+            } else if (type == REMOVE) {
+                it.removeAt(pos)
+            }
+            songAdapter.updateSongList(it)
+        }
+        allSongs = newSongs
+    }
+
+    private fun createNewSongs(): MutableList<Song>? {
+        var newSongs: MutableList<Song>? = null
+        allSongs?.let {
+            newSongs = it.toMutableList()
+        }
+        newSongs?.let {
+            return it
+        }
+        return  newSongs
+    }
 }
 
 interface OnSongClickListener {
