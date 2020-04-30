@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
         const val ALL_SONGS = "All Songs"
         const val DOTIFY = "Dotify"
         const val CURRENT_SONG = "current_song"
-        const val SONG_LIST_FRAG = "song_list_frag"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +43,11 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
                 }
             }
         }
-        if (songListFragment == null) {
-            Log.i("main", "songListFrag is null")
-        } else {
-            Log.i("main", "songListFrag is not null")
-        }
+//        if (songListFragment == null) {
+//            Log.i("main", "songListFrag is null")
+//        } else {
+//            Log.i("main", "songListFrag is not null")
+//        }
 
         if (supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null ) {
             songListFragment = SongListFragment()
@@ -71,15 +70,17 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
         if (songListFragment == null) {
             songListFragment = supportFragmentManager.findFragmentByTag(SongListFragment.TAG) as? SongListFragment
         }
-        if (supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) == null) {
-            title = DOTIFY
-            bottomBar.visibility = View.VISIBLE
 
-        } else {
-//            Log.i("main", "get savedInstanceState ${savedInstanceState.toString()}")
+        if (supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) != null ) {
             title = DOTIFY
             bottomBar.visibility = View.INVISIBLE
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        } else {
+//            Log.i("main", "get savedInstanceState ${savedInstanceState.toString()}")
+            title = ALL_SONGS
+            bottomBar.visibility = View.VISIBLE
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
 
         // handle shuffle button click

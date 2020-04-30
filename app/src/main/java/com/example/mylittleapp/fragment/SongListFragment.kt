@@ -44,17 +44,6 @@ class SongListFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if (savedInstanceState != null) {
-//            Log.i("list", "have instance state onCreate")
-//            with(savedInstanceState) {
-//                allSongs = getParcelableArrayList(ALL_SONGS)
-//                Log.i("list", "${allSongs?.get(0)?.title} onCreate")
-//                updateList()
-//            }
-//        } else {
-//            Log.i("list", "no instance state onCreate")
-//
-//        }
         arguments?.let {args ->
             allSongs = args.getParcelableArrayList<Song>(ALL_SONGS) as ArrayList<Song>
         }
@@ -74,11 +63,10 @@ class SongListFragment: Fragment() {
             Log.i("list", "have instance state onViewCreated")
             with(savedInstanceState) {
                 allSongs = getParcelableArrayList(ALL_SONGS)
-                Log.i("list", "${allSongs?.get(0)?.title} onViewCreate")
+                Log.i("list", "${allSongs?.get(0)?.title} onViewCreated")
             }
         }
         allSongs?.let {
-            Log.i("list", "${allSongs?.get(0)?.title} onViewCreated")
             songAdapter = SongListAdapter(it)
         }
 
@@ -98,17 +86,6 @@ class SongListFragment: Fragment() {
             Toast.makeText(context, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-////        Log.i("now", "activity created")
-//        if (savedInstanceState != null) {
-//            Log.i("list", "activity created")
-//            with(savedInstanceState) {
-//                allSongs = getParcelableArrayList(ALL_SONGS)
-//            }
-//        }
-//    }
 
     fun shuffleList() {
         updateList(SHUFFLE)
