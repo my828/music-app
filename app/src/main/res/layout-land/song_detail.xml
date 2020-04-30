@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SongDetailActivity"
+    android:id="@+id/clParent"
+    android:background="#ffff"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <ImageButton
+            android:id="@+id/ibImage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:foreground="?selectableItemBackground"
+            android:scaleType="fitCenter"
+            app:layout_constraintDimensionRatio="4:5"
+            android:padding="10dp"
+            tools:src="@drawable/baby_yoda"
+            tools:layout_editor_absoluteX="16dp"
+            />
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ibImage"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            >
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Baby Yoda Only One Fo Me"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="25sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+
+            <TextView
+                android:id="@+id/tvArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Baby Yoda ft Min Yangster"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+
+            <TextView
+                android:id="@+id/tvPlaysCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvArtist"
+                android:layout_marginTop="10dp"
+                tools:text="123456"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/ibPrev"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/transparent"
+                    android:foreground="?selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_foreground"
+                    app:layout_constraintHorizontal_bias="1.0"
+
+                    />
+                <ImageButton
+                    android:id="@+id/ibPlay"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/transparent"
+                    android:foreground="?selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_play"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/ibNext"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/transparent"
+                    android:foreground="?selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_next"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
