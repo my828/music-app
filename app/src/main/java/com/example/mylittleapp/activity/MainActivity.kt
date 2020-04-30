@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.security.acl.NotOwnerException
 
 class MainActivity : AppCompatActivity(), OnSongClickListener {
-    private val allSongs: ArrayList<Song> = ArrayList(SongDataProvider.getAllSongs())
+    private var allSongs: ArrayList<Song>? = null
 
     private var songListFragment: SongListFragment? = null
 
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
         const val ALL_SONGS = "All Songs"
         const val DOTIFY = "Dotify"
         const val CURRENT_SONG = "current_song"
+        const val SONG_LIST_FRAG = "song_list_frag"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,21 +41,23 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
                 currentSong = getParcelable<Song>(CURRENT_SONG)
                 currentSong?.let {
                     tvDisplaySong.text ="${currentSong?.title} -- ${currentSong?.artist}"
-
                 }
             }
         }
         if (songListFragment == null) {
             Log.i("main", "songListFrag is null")
+        } else {
+            Log.i("main", "songListFrag is not null")
         }
 
         if (supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null ) {
             songListFragment = SongListFragment()
-
+            allSongs = ArrayList(SongDataProvider.getAllSongs())
             // start/initialize song list fragment
             val bundle = Bundle().apply {
                 putParcelableArrayList(SongListFragment.ALL_SONGS, allSongs)
             }
+
             songListFragment?.let {
                 Log.i("main", "add song list")
                 it.arguments = bundle

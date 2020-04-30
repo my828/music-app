@@ -15,6 +15,7 @@ import com.ericchee.songdataprovider.SongDataProvider
 import com.example.mylittleapp.R
 import com.example.mylittleapp.SongDiffCallBack
 import com.example.mylittleapp.SongListAdapter
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_song_list.*
 import kotlin.random.Random
@@ -43,16 +44,17 @@ class SongListFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            Log.i("now", "have instance state")
-            with(savedInstanceState) {
-                allSongs = getParcelableArrayList(ALL_SONGS)
-                updateList()
-            }
-        } else {
-            Log.i("now", "no instance state")
-
-        }
+//        if (savedInstanceState != null) {
+//            Log.i("list", "have instance state onCreate")
+//            with(savedInstanceState) {
+//                allSongs = getParcelableArrayList(ALL_SONGS)
+//                Log.i("list", "${allSongs?.get(0)?.title} onCreate")
+//                updateList()
+//            }
+//        } else {
+//            Log.i("list", "no instance state onCreate")
+//
+//        }
         arguments?.let {args ->
             allSongs = args.getParcelableArrayList<Song>(ALL_SONGS) as ArrayList<Song>
         }
@@ -68,8 +70,15 @@ class SongListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (savedInstanceState != null) {
+            Log.i("list", "have instance state onViewCreated")
+            with(savedInstanceState) {
+                allSongs = getParcelableArrayList(ALL_SONGS)
+                Log.i("list", "${allSongs?.get(0)?.title} onViewCreate")
+            }
+        }
         allSongs?.let {
+            Log.i("list", "${allSongs?.get(0)?.title} onViewCreated")
             songAdapter = SongListAdapter(it)
         }
 
@@ -103,10 +112,12 @@ class SongListFragment: Fragment() {
 
     fun shuffleList() {
         updateList(SHUFFLE)
+        Log.i("list", "${allSongs?.get(0)?.title} onShuffle")
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.i("list", "saved")
+        Log.i("list", "saved 114")
         outState?.run {
             putParcelableArrayList(ALL_SONGS, allSongs as java.util.ArrayList<out Parcelable>)
         }
@@ -124,10 +135,15 @@ class SongListFragment: Fragment() {
             songAdapter?.updateSongList(it)
         }
         allSongs = newSongs
+        Log.i("list", "${allSongs?.get(0)?.title} updateList")
+
     }
 
     private fun createNewSongs(): MutableList<Song>? {
         var newSongs: MutableList<Song>? = null
+        if (allSongs == null) {
+            Log.i("list", "song list is empty 137")
+        }
         allSongs?.let {
             newSongs = it.toMutableList()
         }
