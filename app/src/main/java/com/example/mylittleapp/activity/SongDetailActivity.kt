@@ -66,24 +66,24 @@ class SongDetailActivity : AppCompatActivity() {
         Toast.makeText(this, "Skipping to previous track", Toast.LENGTH_SHORT).show()
     }
 
-    fun changeUserClicked(view: View) {
-//        Log.i("visibility", View.INVISIBLE.toString())
-        if (tvUser.visibility == View.VISIBLE) {
-            tvUser.visibility = View.INVISIBLE
-            etUser.visibility = View.VISIBLE
-            btnChange.text = "Apply"
-        } else {
-            if (etUser.text.isEmpty()) {
-                Toast.makeText(this, "User name cannot be empty", Toast.LENGTH_SHORT).show()
-                return
-            }
-            tvUser.apply {
-                text = etUser.text
-                visibility = View.VISIBLE
-            }
-            etUser.visibility = View.INVISIBLE
-            btnChange.text = "Change User"
-        }
-    }
+//    fun changeUserClicked(view: View) {
+////        Log.i("visibility", View.INVISIBLE.toString())
+//        if (tvUser.visibility == View.VISIBLE) {
+//            tvUser.visibility = View.INVISIBLE
+//            etUser.visibility = View.VISIBLE
+//            btnChange.text = "Apply"
+//        } else {
+//            if (etUser.text.isEmpty()) {
+//                Toast.makeText(this, "User name cannot be empty", Toast.LENGTH_SHORT).show()
+//                return
+//            }
+//            tvUser.apply {
+//                text = etUser.text
+//                visibility = View.VISIBLE
+//            }
+//            etUser.visibility = View.INVISIBLE
+//            btnChange.text = "Change User"
+//        }
+//    }
 
 }

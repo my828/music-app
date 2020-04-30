@@ -2,6 +2,7 @@ package com.example.mylittleapp.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,10 @@ import com.example.mylittleapp.SongDiffCallBack
 import com.example.mylittleapp.SongListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_song_list.*
+import kotlin.random.Random
 
 class SongListFragment: Fragment() {
-    private lateinit var songAdapter: SongListAdapter
-
+    private var songAdapter: SongListAdapter? = null
 
     private var allSongs: List<Song>? = null
 
@@ -27,8 +28,9 @@ class SongListFragment: Fragment() {
 
     companion object {
         const val ALL_SONGS = "all_songs"
-        val SHUFFLE = "shuffle"
-        val REMOVE = "remove"
+        const val SHUFFLE = "shuffle"
+        const val REMOVE = "remove"
+        val TAG = SongListFragment::class.java.simpleName
     }
 
     override fun onAttach(context: Context?) {
@@ -40,6 +42,17 @@ class SongListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            Log.i("now", "have instance state")
+            with(savedInstanceState) {
+                allSongs = getParcelableArrayList(ALL_SONGS)
+                updateList()
+            }
+        } else {
+            Log.i("now", "no instance state")
+
+        }
         arguments?.let {args ->
             allSongs = args.getParcelableArrayList<Song>(ALL_SONGS) as ArrayList<Song>
         }
@@ -67,28 +80,40 @@ class SongListFragment: Fragment() {
         }
 
         // invoke single song click listener from songAdapter
-        songAdapter.onSongClickListener = {
+        songAdapter?.onSongClickListener = {
             onSongClickListener?.onSongClicked(it)
         }
 
-        songAdapter.onLongClickListener = { song, pos ->
+        songAdapter?.onLongClickListener = { song, pos ->
             updateList(REMOVE, pos)
-//            var newSongs = createNewSongs()
-//            newSongs?.let {
-//                it.removeAt(pos)
-//                songAdapter.updateSongList(it)
-//            }
-//            allSongs = newSongs
-//            Log.i("remove", allSongs.toString())
             Toast.makeText(context, "you have deleted ${song.title} by ${song.artist}", Toast.LENGTH_SHORT).show()
         }
     }
 
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+////        Log.i("now", "activity created")
+//        if (savedInstanceState != null) {
+//            Log.i("list", "activity created")
+//            with(savedInstanceState) {
+//                allSongs = getParcelableArrayList(ALL_SONGS)
+//            }
+//        }
+//    }
+
     fun shuffleList() {
-        updateList(SHUFFLE, -1)
+        updateList(SHUFFLE)
     }
 
-    private fun updateList(type: String, pos: Int) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        Log.i("list", "saved")
+        outState?.run {
+            putParcelableArrayList(ALL_SONGS, allSongs as java.util.ArrayList<out Parcelable>)
+        }
+        super.onSaveInstanceState(outState)
+
+    }
+    private fun updateList(type: String = "", pos: Int = -1) {
         var newSongs = createNewSongs()
         newSongs?.let {
             if (type == SHUFFLE) {
@@ -96,7 +121,7 @@ class SongListFragment: Fragment() {
             } else if (type == REMOVE) {
                 it.removeAt(pos)
             }
-            songAdapter.updateSongList(it)
+            songAdapter?.updateSongList(it)
         }
         allSongs = newSongs
     }
@@ -112,6 +137,7 @@ class SongListFragment: Fragment() {
         return  newSongs
     }
 }
+
 
 interface OnSongClickListener {
     fun onSongClicked(song: Song)
