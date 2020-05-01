@@ -85,11 +85,6 @@ class NowPlayingFragment: Fragment() {
         super.onSaveInstanceState(outState)
     }
 
-    override fun onDestroy() {
-        Log.i("now", "destroy")
-
-        super.onDestroy()
-    }
     fun updateSong(song: Song) {
         this.song = song
         updateSongViews()

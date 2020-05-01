@@ -94,7 +94,6 @@ class SongListFragment: Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.i("list", "saved 114")
         outState?.run {
             putParcelableArrayList(ALL_SONGS, allSongs as java.util.ArrayList<out Parcelable>)
         }
@@ -102,7 +101,7 @@ class SongListFragment: Fragment() {
 
     }
     private fun updateList(type: String = "", pos: Int = -1) {
-        var newSongs = createNewSongs()
+        var newSongs = allSongs?.toMutableList()
         newSongs?.let {
             if (type == SHUFFLE) {
                 it.shuffle()
@@ -112,23 +111,8 @@ class SongListFragment: Fragment() {
             songAdapter?.updateSongList(it)
         }
         allSongs = newSongs
-        Log.i("list", "${allSongs?.get(0)?.title} updateList")
-
     }
 
-    private fun createNewSongs(): MutableList<Song>? {
-        var newSongs: MutableList<Song>? = null
-        if (allSongs == null) {
-            Log.i("list", "song list is empty 137")
-        }
-        allSongs?.let {
-            newSongs = it.toMutableList()
-        }
-        newSongs?.let {
-            return it
-        }
-        return  newSongs
-    }
 }
 
 

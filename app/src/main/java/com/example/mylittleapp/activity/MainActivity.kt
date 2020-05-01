@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
                 supportFragmentManager
                     .beginTransaction()
                     .add(R.id.fragContainer, it, SongListFragment.TAG)
-                    .addToBackStack(SongListFragment.TAG)
+//                    .addToBackStack(SongListFragment.TAG)
                     .commit()
             }
         }
@@ -75,13 +75,20 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
             title = DOTIFY
             bottomBar.visibility = View.INVISIBLE
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         } else {
 //            Log.i("main", "get savedInstanceState ${savedInstanceState.toString()}")
             title = ALL_SONGS
             bottomBar.visibility = View.VISIBLE
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
+
+//        if (nowPlayingFrag == null) {
+//            Log.i("main", "nowPlayingFrag is null")
+//
+//            bottomBar.visibility = View.VISIBLE
+//            title = ALL_SONGS
+//            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+//        }
 
         // handle shuffle button click
         btnShuffle.setOnClickListener {
@@ -99,7 +106,7 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
 
         // listener for fragment manager back stack changes
         supportFragmentManager.addOnBackStackChangedListener {
-            if (supportFragmentManager.backStackEntryCount > 1) {
+            if (supportFragmentManager.backStackEntryCount > 0) {
                 Log.i("main", "${supportFragmentManager.backStackEntryCount}")
 
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -112,6 +119,8 @@ class MainActivity : AppCompatActivity(), OnSongClickListener {
                     title = ALL_SONGS
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 }
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
             }
         }
 
